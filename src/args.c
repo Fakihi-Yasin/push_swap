@@ -6,7 +6,7 @@
 /*   By: yafakihi <yafakihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 01:49:09 by yafakihi          #+#    #+#             */
-/*   Updated: 2026/01/16 01:49:20 by yafakihi         ###   ########.fr       */
+/*   Updated: 2026/01/16 04:04:48 by yafakihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,80 +83,69 @@ static int	has_duplicates(int *arr, int size)
 	return (0);
 }
 
-int	*parse_input(int argc, char **argv, int *size)
+static char **prepare_input(int argc, char **argv, int *count)
 {
-	char	**split;
-	int		i;
-	int		*arr;
-	int		count;
+    char **split;
 
-	if (argc == 1)
-		return (NULL);
-	if (argc == 2)
-	{
-		split = ft_split(argv[1], ' ');
-		if (!split)
-			return (NULL);
-		count = 0;
-		while (split[count])
-			count++;
-	}
-	else
-	{
-		split = argv + 1;
-		count = argc - 1;
-	}
-	if (count == 0)
-		return (NULL);
-	arr = malloc(sizeof(int) * count);
-	if (!arr)
-	{
-		if (argc == 2)
-		{
-			int j = 0;
-			while (split[j])
-				free(split[j++]);
-			free(split);
-		}
-		return (NULL);
-	}
-	i = 0;
-	while (i < count)
-	{
-		if (!is_valid_int(split[i]))
-		{
-			free(arr);
-			if (argc == 2)
-			{
-				int j = 0;
-				while (split[j])
-					free(split[j++]);
-				free(split);
-			}
-			return (NULL);
-		}
-		arr[i] = ft_atol(split[i]);
-		i++;
-	}
-	if (has_duplicates(arr, count))
-	{
-		free(arr);
-		if (argc == 2)
-		{
-			int j = 0;
-			while (split[j])
-				free(split[j++]);
-			free(split);
-		}
-		return (NULL);
-	}
-	if (argc == 2)
-	{
-		int j = 0;
-		while (split[j])
-			free(split[j++]);
-		free(split);
-	}
-	*size = count;
-	return (arr);
+    if (argc == 2)
+    {
+        split = ft_split(argv[1], ' ');
+        if (!split)
+            return (NULL);
+        *count = 0;
+        while (split[*count])
+            (*count)++;
+    }
+    else
+    {
+        split = argv + 1;
+        *count = argc - 1;
+    }
+    if (*count == 0)
+        return (NULL);
+    return (split);
+}
+static int *fill_array(char **split, int count, int argc)
+{
+    int *arr;
+    int i;
+
+    arr = malloc(sizeof(int) * count);
+    if (!arr)
+        return (NULL);
+    i = 0;
+    while (i < count)
+    {
+        if (!is_valid_int(split[i]))
+        {
+            free(arr);
+            return (NULL);
+        }
+        arr[i] = (int)ft_atol(split[i]);
+        i++;
+    }
+    return (arr);
+}
+
+int *parse_input(int argc, char **argv, int *size)
+{
+    char    **split;
+    int     count;
+    int     *arr;
+
+    if (argc == 1)
+        return (NULL);
+    split = prepare_input(argc, argv, &count);
+    if (!split)
+        return (NULL);
+    arr = fill_array(split, count, argc);
+    if (!arr || has_duplicates(arr, count))
+    {
+        free(arr);
+        free_split(split, argc);
+        return (NULL);
+    }
+    free_split(split, argc);
+    *size = count;
+    return (arr);
 }
