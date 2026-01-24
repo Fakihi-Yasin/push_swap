@@ -6,7 +6,7 @@
 /*   By: yafakihi <yafakihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 01:49:09 by yafakihi          #+#    #+#             */
-/*   Updated: 2026/01/16 04:04:48 by yafakihi         ###   ########.fr       */
+/*   Updated: 2026/01/17 18:40:23 by yafakihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,69 +83,147 @@ static int	has_duplicates(int *arr, int size)
 	return (0);
 }
 
-static char **prepare_input(int argc, char **argv, int *count)
+static char	**prepare_input(int argc, char **argv, int *count)
 {
-    char **split;
+	char	**split;
 
-    if (argc == 2)
-    {
-        split = ft_split(argv[1], ' ');
-        if (!split)
-            return (NULL);
-        *count = 0;
-        while (split[*count])
-            (*count)++;
-    }
-    else
-    {
-        split = argv + 1;
-        *count = argc - 1;
-    }
-    if (*count == 0)
-        return (NULL);
-    return (split);
+	if (argc == 2)
+	{
+		split = ft_split(argv[1], ' ');
+		if (!split)
+			return (NULL);
+		*count = 0;
+		while (split[*count])
+			(*count)++;
+	}
+	else
+	{
+		split = argv + 1;
+		*count = argc - 1;
+	}
+	if (*count == 0)
+		return (NULL);
+	return (split);
 }
-static int *fill_array(char **split, int count, int argc)
-{
-    int *arr;
-    int i;
 
+static void	free_split(char **split, int argc)
+{
+	int	i;
+
+	if (argc == 2)
+	{
+		i = 0;
+		while (split[i])
+		{
+			free(split[i]);
+			i++;
+		}
+		free(split);
+	}
+}
+
+int parse_input(int argc, char **argv, t_stack **a, t_stack **b)
+{
+    char    **split;
+    int     count;
+    int     *arr;
+    int     i;
+    t_stack *node;
+
+    if (argc == 1)
+        return (0);
+    *b = NULL;
+    split = prepare_input(argc, argv, &count);
+    if (!split)
+        return (0);
     arr = malloc(sizeof(int) * count);
     if (!arr)
-        return (NULL);
+        return (0);
     i = 0;
     while (i < count)
     {
         if (!is_valid_int(split[i]))
         {
             free(arr);
-            return (NULL);
+            free_split(split, argc);
+            return (0);
         }
         arr[i] = (int)ft_atol(split[i]);
         i++;
     }
-    return (arr);
-}
-
-int *parse_input(int argc, char **argv, int *size)
-{
-    char    **split;
-    int     count;
-    int     *arr;
-
-    if (argc == 1)
-        return (NULL);
-    split = prepare_input(argc, argv, &count);
-    if (!split)
-        return (NULL);
-    arr = fill_array(split, count, argc);
-    if (!arr || has_duplicates(arr, count))
+    if (has_duplicates(arr, count))
     {
         free(arr);
         free_split(split, argc);
-        return (NULL);
+        return (0);
     }
+    i = 0;
+    while (i < count)
+    {
+        node = new_node(arr[i]);
+        if (!node)
+        {
+            free(arr);
+            free_split(split, argc);
+            return (0);
+        }
+        add_to_stack(a, node);
+        i++;
+    }
+    free(arr);
     free_split(split, argc);
-    *size = count;
-    return (arr);
+    return (1);
+}
+
+int	parse_input(int argc, char **argv, t_stack **a, t_stack **b)
+{
+	char		**split;
+	int			count;
+	int			*arr;
+	int			i;
+	t_stack		*node;
+
+	if (argc == 1)
+		return (0);
+	*b = NULL;
+	split = prepare_input(argc, argv, &count);
+	if (!split)
+		return (0);
+	arr = malloc(sizeof(int) * count);
+	if (!arr)
+		return (0);
+	i = 0;
+	while (i < count)
+	{
+		if (!is_valid_int(split[i]))
+		{
+			free(arr);
+			free_split(split, argc);
+			return (0);
+		}
+		arr[i] = (int)ft_atol(split[i]);
+		i++;
+	}
+	if (has_duplicates(arr, count))
+	{
+		free(arr);
+		free_split(split, argc);
+		return (0);
+	}
+	i = 0;
+	while (i < count)
+	{
+		node = new_node(arr[i]);
+		if (!node)
+		{
+			free(arr);
+			free_split(split, argc);
+			return (0);
+		}
+		add_to_stack(a, node);
+		i++;
+	}
+	free(arr);
+	free_split(split, argc);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: yafakihi <yafakihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 01:49:49 by yafakihi          #+#    #+#             */
-/*   Updated: 2026/01/16 01:49:50 by yafakihi         ###   ########.fr       */
+/*   Updated: 2026/01/17 18:39:29 by yafakihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,20 @@
 
 typedef struct s_stack
 {
-	int	*data;
-	int	size;
-	int	capacity;
+	int				content;
+	int				index;
+	struct s_stack	*next;
 }	t_stack;
 
 /* Argument parsing */
-int	*parse_input(int argc, char **argv, int *size);
+int	parse_input(int argc, char **argv, t_stack **a, t_stack **b);
 
-/* Stack operations */
-t_stack	*stack_init(int capacity);
-void	stack_free(t_stack *stack);
-int		stack_push(t_stack *stack, int value);
-int		stack_pop(t_stack *stack);
-int		stack_peek(t_stack *stack);
-int		stack_is_empty(t_stack *stack);
+/* Stack utilities */
+t_stack	*new_node(int content);
+void	free_stacks(t_stack **a, t_stack **b);
+int		stack_size(t_stack *stack);
+t_stack	*find_last(t_stack *stack);
+int		is_sorted(t_stack *stack);
 
 /* Push swap operations */
 void	sa(t_stack *a);
