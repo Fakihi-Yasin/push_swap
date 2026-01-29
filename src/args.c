@@ -85,32 +85,91 @@ static int	has_duplicates(int *arr, int size)
 
 static char	**prepare_input(int argc, char **argv, int *count)
 {
+	char	**all_numbers;
 	char	**split;
+	int		total_count;
+	int		i;
+	int		j;
+	int		k;
 
-	if (argc == 2)
+	/* Count total numbers across all arguments */
+	total_count = 0;
+	i = 1;
+	while (i < argc)
 	{
-		split = ft_split(argv[1], ' ');
+		split = ft_split(argv[i], ' ');
 		if (!split)
 			return (NULL);
-		*count = 0;
-		while (split[*count])
-			(*count)++;
+		j = 0;
+		while (split[j])
+		{
+			total_count++;
+			j++;
+		}
+		j = 0;
+		while (split[j])
+		{
+			free(split[j]);
+			j++;
+		}
+		free(split);
+		i++;
 	}
-	else
-	{
-		split = argv + 1;
-		*count = argc - 1;
-	}
-	if (*count == 0)
+	
+	if (total_count == 0)
 		return (NULL);
-	return (split);
+	
+	/* Allocate array for all numbers */
+	all_numbers = malloc(sizeof(char*) * (total_count + 1));
+	if (!all_numbers)
+		return (NULL);
+	
+	/* Collect all numbers */
+	k = 0;
+	i = 1;
+	while (i < argc)
+	{
+		split = ft_split(argv[i], ' ');
+		if (!split)
+		{
+			free(all_numbers);
+			return (NULL);
+		}
+		j = 0;
+		while (split[j])
+		{
+			all_numbers[k] = ft_strdup(split[j]);
+			if (!all_numbers[k])
+			{
+				while (k > 0)
+					free(all_numbers[--k]);
+				free(all_numbers);
+				return (NULL);
+			}
+			k++;
+			j++;
+		}
+		j = 0;
+		while (split[j])
+		{
+			free(split[j]);
+			j++;
+		}
+		free(split);
+		i++;
+	}
+	all_numbers[k] = NULL;
+	*count = total_count;
+	return (all_numbers);
 }
 
 static void	free_split(char **split, int argc)
 {
 	int	i;
 
-	if (argc == 2)
+	(void)argc; /* Unused parameter */
+	/* Always free the dynamically allocated array */
+	if (split)
 	{
 		i = 0;
 		while (split[i])
