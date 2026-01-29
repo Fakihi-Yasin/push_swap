@@ -17,17 +17,24 @@ int main(int argc, char **argv)
 	t_stack	*a;
 	t_stack	*b;
 
-	a = NULL;
-	b = NULL;
 	if (argc < 2)
 		return (0);
+	/* STEP 3: Added proper stack initialization */
+	init_stacks(&a, &b);
 	if (!parse_input(argc, argv, &a, &b))
 	{
 		free_stacks(&a, &b);
 		write(2, "Error\n", 6);
 		return (1);
 	}
-	// TODO: Add sorting logic here
+	/* STEP 3: Added early exit optimization - check if already sorted */
+	if (is_sorted(a))
+	{
+		free_stacks(&a, &b);
+		return (0);
+	}
+	/* STEP 4: Added sorting dispatch based on stack size */
+	sort_stack(&a, &b);
 	free_stacks(&a, &b);
 	return (0);
 }

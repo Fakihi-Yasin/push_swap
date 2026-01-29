@@ -122,59 +122,6 @@ static void	free_split(char **split, int argc)
 	}
 }
 
-int parse_input(int argc, char **argv, t_stack **a, t_stack **b)
-{
-    char    **split;
-    int     count;
-    int     *arr;
-    int     i;
-    t_stack *node;
-
-    if (argc == 1)
-        return (0);
-    *b = NULL;
-    split = prepare_input(argc, argv, &count);
-    if (!split)
-        return (0);
-    arr = malloc(sizeof(int) * count);
-    if (!arr)
-        return (0);
-    i = 0;
-    while (i < count)
-    {
-        if (!is_valid_int(split[i]))
-        {
-            free(arr);
-            free_split(split, argc);
-            return (0);
-        }
-        arr[i] = (int)ft_atol(split[i]);
-        i++;
-    }
-    if (has_duplicates(arr, count))
-    {
-        free(arr);
-        free_split(split, argc);
-        return (0);
-    }
-    i = 0;
-    while (i < count)
-    {
-        node = new_node(arr[i]);
-        if (!node)
-        {
-            free(arr);
-            free_split(split, argc);
-            return (0);
-        }
-        add_to_stack(a, node);
-        i++;
-    }
-    free(arr);
-    free_split(split, argc);
-    return (1);
-}
-
 int	parse_input(int argc, char **argv, t_stack **a, t_stack **b)
 {
 	char		**split;

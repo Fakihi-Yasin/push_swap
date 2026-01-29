@@ -22,12 +22,73 @@
 
 typedef struct s_stack
 {
-	int	*data;
-	int	size;
-	int	capacity;
+	int	content;
+	int	index;
+	struct s_stack	*next;
 }	t_stack;
 
 /* Argument parsing */
-int	*parse_input(int argc, char **argv, int *size);
+int	parse_input(int argc, char **argv, t_stack **a, t_stack **b);
+
+/* Stack utilities */
+t_stack	*new_node(int content);
+void	add_to_stack(t_stack **stack, t_stack *new);
+t_stack	*find_last(t_stack *stack);
+void	free_stacks(t_stack **a, t_stack **b);
+int	stack_size(t_stack *stack);
+
+/* Stack management */
+/* STEP 3: Added stack validation and utility functions */
+int	is_sorted(t_stack *a);
+void	init_stacks(t_stack **a, t_stack **b);
+int	stack_min(t_stack *stack);
+int	stack_max(t_stack *stack);
+int	find_position(t_stack *stack, int value);
+
+/* Sorting algorithms */
+/* STEP 4: Added small sorting algorithms for 2-5 elements */
+void	sort_2(t_stack **a);
+void	sort_3(t_stack **a);
+void	sort_4(t_stack **a, t_stack **b);
+void	sort_5(t_stack **a, t_stack **b);
+void	sort_stack(t_stack **a, t_stack **b);
+
+/* Array utilities */
+/* STEP 5: Added index assignment and array utilities */
+int	*create_sorted_array(t_stack *stack, int size);
+void	sort_array(int *arr, int size);
+void	assign_indexes(t_stack *stack, int *sorted_arr, int size);
+int	get_chunk_size(int size);
+
+/* Large stack algorithm */
+/* STEP 6: Added chunk sorting for large stacks */
+void	chunk_to_b(t_stack **a, t_stack **b, int chunk_size, int size);
+t_stack	*find_max_index(t_stack *stack);
+int	get_position(t_stack *stack, t_stack *target);
+void	move_to_top(t_stack **b, t_stack *target);
+
+/* Final assembly */
+/* STEP 7: Added final assembly functions */
+void	push_back_sorted(t_stack **a, t_stack **b);
+void	sort_large_stack(t_stack **a, t_stack **b);
+
+/* Push operations */
+void	pa(t_stack **a, t_stack **b);
+void	pb(t_stack **a, t_stack **b);
+
+/* Swap operations */
+void	sa(t_stack **a);
+void	sb(t_stack **b);
+void	ss(t_stack **a, t_stack **b);
+
+/* Rotate operations */
+void	ra(t_stack **a);
+void	rb(t_stack **b);
+void	rr(t_stack **a, t_stack **b);
+
+/* Reverse rotate operations */
+void	rra(t_stack **a);
+void	rrb(t_stack **b);
+void	rrr(t_stack **a, t_stack **b);
 
 #endif /* PUSH_SWAP_H */
