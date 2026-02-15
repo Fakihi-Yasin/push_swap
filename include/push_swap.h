@@ -6,7 +6,7 @@
 /*   By: yafakihi <yafakihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 01:49:30 by yafakihi          #+#    #+#             */
-/*   Updated: 2026/01/16 01:49:31 by yafakihi         ###   ########.fr       */
+/*   Updated: 2026/02/15 17:51:02 by yafakihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_stack
 
 /* Argument parsing */
 int	parse_input(int argc, char **argv, t_stack **a, t_stack **b);
+<<<<<<< HEAD
 long	ft_atol(const char *str);
 char	**prepare_input(int argc, char **argv, int *count);
 int	*validate_and_convert(char **split, int count, int argc);
@@ -41,6 +42,12 @@ void	free_partial_array(char **arr, int count);
 int	is_valid_int(const char *str);
 void	free_split(char **split, int argc);
 int	has_duplicates(int *arr, int size);
+=======
+char	**prepare_input(int argc, char **argv, int *count);
+void	free_split(char **split);
+int	has_duplicates(int *arr, int size);
+long	ft_atol(const char *str);
+>>>>>>> recovery-branch
 
 /* Stack utilities */
 t_stack	*new_node(int content);
@@ -78,6 +85,7 @@ void	chunk_to_b(t_stack **a, t_stack **b, int chunk_size, int size);
 t_stack	*find_max_index(t_stack *stack);
 int	get_position(t_stack *stack, t_stack *target);
 void	move_to_top(t_stack **b, t_stack *target);
+<<<<<<< HEAD
 int	ft_len_stack(t_stack *stack);
 int	ft_chunk_size(int size);
 int	ft_in_index(t_stack *stack, int target, int chunk_size);
@@ -86,6 +94,8 @@ int	has_element_in_range(t_stack *stack, int min, int max);
 int	find_in_range_pos(t_stack *stack, int min, int max);
 int	has_element_in_current_chunk(t_stack *stack, int min, int max);
 int	find_chunk_element_pos(t_stack *stack, int min, int max);
+=======
+>>>>>>> recovery-branch
 
 /* Final assembly */
 /* STEP 7: Added final assembly functions */

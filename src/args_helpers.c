@@ -6,7 +6,7 @@
 /*   By: yafakihi <yafakihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 21:00:00 by yafakihi          #+#    #+#             */
-/*   Updated: 2026/01/28 21:00:00 by yafakihi         ###   ########.fr       */
+/*   Updated: 2026/02/15 22:19:36 by yafakihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,4 +119,8 @@ char	**allocate_and_collect(int argc, char **argv, int total_count)
 	}
 	all_numbers[k] = NULL;
 	return (all_numbers);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> recovery-branch

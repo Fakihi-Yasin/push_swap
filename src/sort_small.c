@@ -6,7 +6,11 @@
 /*   By: yafakihi <yafakihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 20:00:00 by yafakihi          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2026/01/29 20:28:28 by yafakihi         ###   ########.fr       */
+=======
+/*   Updated: 2026/02/13 12:50:13 by yafakihi         ###   ########.fr       */
+>>>>>>> recovery-branch
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +87,7 @@ void	sort_4(t_stack **a, t_stack **b)
 	pa(a, b);
 }
 
+<<<<<<< HEAD
 /*
 ** sort_5: Sorts 5 elements - move 2 smallest to B, sort 3, push back
 ** Strategy: Isolate 2 smallest, sort remaining 3, reassemble in order
@@ -95,6 +100,10 @@ void	sort_5(t_stack **a, t_stack **b)
 	min = stack_min(*a);
 	pos = find_position(*a, min);
 	
+=======
+static void	move_min_to_top(t_stack **a, int pos)
+{
+>>>>>>> recovery-branch
 	if (pos == 1)
 		ra(a);
 	else if (pos == 2)
@@ -109,6 +118,7 @@ void	sort_5(t_stack **a, t_stack **b)
 	}
 	else if (pos == 4)
 		rra(a);
+<<<<<<< HEAD
 	
 	pb(a, b);
 	
@@ -125,8 +135,32 @@ void	sort_5(t_stack **a, t_stack **b)
 	else if (pos == 3)
 		rra(a);
 	
+=======
+}
+
+void	sort_5(t_stack **a, t_stack **b)
+{
+	int	min;
+	int	pos;
+
+	min = stack_min(*a);
+	pos = find_position(*a, min);
+	move_min_to_top(a, pos);
+	pb(a, b);
+	min = stack_min(*a);
+	pos = find_position(*a, min);
+	if (pos <= 2)
+		while (pos--)
+			ra(a);
+	else if (pos == 3)
+		rra(a);
+>>>>>>> recovery-branch
 	pb(a, b);
 	sort_3(a);
 	pa(a, b);
 	pa(a, b);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> recovery-branch

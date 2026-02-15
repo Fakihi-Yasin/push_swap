@@ -6,7 +6,11 @@
 /*   By: yafakihi <yafakihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 20:10:00 by yafakihi          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2026/01/28 20:10:00 by yafakihi         ###   ########.fr       */
+=======
+/*   Updated: 2026/02/15 17:44:59 by yafakihi         ###   ########.fr       */
+>>>>>>> recovery-branch
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +43,10 @@ void	sort_stack(t_stack **a, t_stack **b)
 		sort_5(a, b);
 	else
 	{
+<<<<<<< HEAD
 		/* STEP 6-7: Added large stack algorithm (chunk sorting) */
+=======
+>>>>>>> recovery-branch
 		sort_large_stack(a, b);
 	}
 }
