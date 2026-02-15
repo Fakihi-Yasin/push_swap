@@ -6,112 +6,77 @@
 /*   By: yafakihi <yafakihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 20:40:00 by yafakihi          #+#    #+#             */
-/*   Updated: 2026/01/28 20:40:00 by yafakihi         ###   ########.fr       */
+/*   Updated: 2026/02/14 14:14:50 by yafakihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* STEP 6: Large Stack Algorithm - Chunk sorting for 6+ elements */
+/* Shanks algorithm implementation - exactly 5 functions */
 
 #include "push_swap.h"
 
 /*
-** chunk_to_b: Pushes elements to B in chunks based on their index
-** Elements with smaller indexes go to B first
+** Shanks algorithm - exact implementation as requested
 */
-void	chunk_to_b(t_stack **a, t_stack **b, int chunk_size, int size)
+static int	find_index_pos(t_stack *stack, int min_idx, int max_idx)
 {
-	int	pushed;
-	int	current_chunk;
-
-	pushed = 0;
-	current_chunk = 0;
-	
-	while (pushed < size - 3)
-	{
-		if ((*a)->index <= current_chunk)
-		{
-			pb(a, b);
-			rb(b);
-			pushed++;
-		}
-		else if ((*a)->index <= current_chunk + chunk_size)
-		{
-			pb(a, b);
-			pushed++;
-		}
-		else
-			ra(a);
-		
-		if (pushed == current_chunk + chunk_size + 1)
-			current_chunk += chunk_size;
-	}
-}
-
-/*
-** find_max_index: Finds the node with maximum index in stack B
-** Used to determine which element to push back first
-*/
-t_stack	*find_max_index(t_stack *stack)
-{
-	t_stack	*max_node;
-	int		max_index;
-
-	if (!stack)
-		return (NULL);
-	max_node = stack;
-	max_index = stack->index;
-	
-	while (stack)
-	{
-		if (stack->index > max_index)
-		{
-			max_index = stack->index;
-			max_node = stack;
-		}
-		stack = stack->next;
-	}
-	return (max_node);
-}
-
-/*
-** get_position: Gets position of a node in the stack
-** Returns 0-based position from top
-*/
-int	get_position(t_stack *stack, t_stack *target)
-{
-	int	pos;
+	int		pos;
+	t_stack	*tmp;
 
 	pos = 0;
-	while (stack)
+	tmp = stack;
+	while (tmp)
 	{
-		if (stack == target)
+		if (tmp->index >= min_idx && tmp->index <= max_idx)
 			return (pos);
-		stack = stack->next;
+		tmp = tmp->next;
 		pos++;
 	}
-	return (-1);
+	return (0);
+}
+
+void	chunk_to_b(t_stack **a, t_stack **b, int chunk_size, int size)
+{
+	int	i;
+
+	(void)size;
+	i = 0;
+	
+	while (*a)
+	{
+		if ((*a)->index <= i)
+		{
+			pb(a, b);
+			rb(b);
+			i++;
+		}
+		else if ((*a)->index <= i + chunk_size)
+		{
+			pb(a, b);
+			i++;
+		}
+		else if (find_index_pos(*a, i, i + chunk_size) <= stack_size(*a) / 2)
+			ra(a);
+		else
+			rra(a);
+	}
 }
 
 /*
-** move_to_top: Moves target node to top of stack B
-** Chooses shortest path (rotate or reverse rotate)
+** find_chunk_element_pos: Find position of element in chunk range
 */
-void	move_to_top(t_stack **b, t_stack *target)
-{
-	int	pos;
-	int	size;
+// int	find_chunk_element_pos(t_stack *stack, int min, int max)
+// {
+// 	int		pos;
+// 	t_stack	*tmp;
 
-	pos = get_position(*b, target);
-	size = stack_size(*b);
-	
-	if (pos <= size / 2)
-	{
-		while (*b != target)
-			rb(b);
-	}
-	else
-	{
-		while (*b != target)
-			rrb(b);
-	}
-}
+// 	pos = 0;
+// 	tmp = stack;
+// 	while (tmp)
+// 	{
+// 		if (tmp->index >= min && tmp->index <= max)
+// 			return (pos);
+// 		tmp = tmp->next;
+// 		pos++;
+// 	}
+// 	return (0);
+// }

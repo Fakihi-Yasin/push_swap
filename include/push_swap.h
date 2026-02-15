@@ -6,7 +6,7 @@
 /*   By: yafakihi <yafakihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 01:49:30 by yafakihi          #+#    #+#             */
-/*   Updated: 2026/01/16 01:49:31 by yafakihi         ###   ########.fr       */
+/*   Updated: 2026/02/15 17:51:02 by yafakihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ typedef struct s_stack
 
 /* Argument parsing */
 int	parse_input(int argc, char **argv, t_stack **a, t_stack **b);
+char	**prepare_input(int argc, char **argv, int *count);
+void	free_split(char **split);
+int	has_duplicates(int *arr, int size);
+long	ft_atol(const char *str);
 
 /* Stack utilities */
 t_stack	*new_node(int content);

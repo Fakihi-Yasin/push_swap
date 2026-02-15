@@ -6,7 +6,7 @@
 /*   By: yafakihi <yafakihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 20:10:00 by yafakihi          #+#    #+#             */
-/*   Updated: 2026/01/28 20:10:00 by yafakihi         ###   ########.fr       */
+/*   Updated: 2026/02/15 17:44:59 by yafakihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	sort_stack(t_stack **a, t_stack **b)
 		sort_5(a, b);
 	else
 	{
-		/* STEP 6-7: Added large stack algorithm (chunk sorting) */
 		sort_large_stack(a, b);
 	}
 }

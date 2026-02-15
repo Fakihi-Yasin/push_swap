@@ -6,7 +6,7 @@
 /*   By: yafakihi <yafakihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 01:49:42 by yafakihi          #+#    #+#             */
-/*   Updated: 2026/01/24 21:36:34 by yafakihi         ###   ########.fr       */
+/*   Updated: 2026/02/15 11:58:57 by yafakihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int main(int argc, char **argv)
 
 	if (argc < 2)
 		return (0);
-	/* STEP 3: Added proper stack initialization */
 	init_stacks(&a, &b);
 	if (!parse_input(argc, argv, &a, &b))
 	{
@@ -27,7 +26,6 @@ int main(int argc, char **argv)
 		write(2, "Error\n", 6);
 		return (1);
 	}
-	/* STEP 3: Added early exit optimization - check if already sorted */
 	if (is_sorted(a))
 	{
 		free_stacks(&a, &b);
