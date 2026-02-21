@@ -6,7 +6,7 @@
 /*   By: yafakihi <yafakihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 21:10:00 by yafakihi          #+#    #+#             */
-/*   Updated: 2026/01/28 21:10:00 by yafakihi         ###   ########.fr       */
+/*   Updated: 2026/02/21 15:15:39 by yafakihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,9 @@ void	free_temp_split(char **split)
 	free(split);
 }
 
-void	free_partial_array(char **arr, int count)
-{
-	while (count > 0)
-		free(arr[--count]);
-	free(arr);
-}
-
 int	is_valid_int(const char *str)
 {
-	int	i;
+	int		i;
 	long	num;
 
 	if (!str || !*str)

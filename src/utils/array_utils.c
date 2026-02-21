@@ -6,18 +6,12 @@
 /*   By: yafakihi <yafakihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 20:30:00 by yafakihi          #+#    #+#             */
-/*   Updated: 2026/02/15 22:20:09 by yafakihi         ###   ########.fr       */
+/*   Updated: 2026/02/21 15:17:02 by yafakihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* STEP 5: Index Assignment & Array Utilities - Prepare for chunk algorithm */
-
 #include "push_swap.h"
 
-/*
-** create_sorted_array: Creates sorted copy of stack contents
-** Used to assign indexes based on sorted position
-*/
 int	*create_sorted_array(t_stack *stack, int size)
 {
 	int		*arr;
@@ -39,10 +33,6 @@ int	*create_sorted_array(t_stack *stack, int size)
 	return (arr);
 }
 
-/*
-** sort_array: Simple bubble sort for array
-** Used to create sorted reference for index assignment
-*/
 void	sort_array(int *arr, int size)
 {
 	int	i;
@@ -67,10 +57,6 @@ void	sort_array(int *arr, int size)
 	}
 }
 
-/*
-** assign_indexes: Assigns sorted position index to each stack element
-** 0 = smallest, 1 = second smallest, etc.
-*/
 void	assign_indexes(t_stack *stack, int *sorted_arr, int size)
 {
 	t_stack	*tmp;
@@ -85,7 +71,7 @@ void	assign_indexes(t_stack *stack, int *sorted_arr, int size)
 			if (tmp->content == sorted_arr[i])
 			{
 				tmp->index = i;
-				break;
+				break ;
 			}
 			i++;
 		}
@@ -93,10 +79,6 @@ void	assign_indexes(t_stack *stack, int *sorted_arr, int size)
 	}
 }
 
-/*
-** get_chunk_size: Calculates optimal chunk size based on stack size
-** Smaller chunks for smaller stacks, larger for bigger stacks
-*/
 int	get_chunk_size(int size)
 {
 	if (size <= 10)
@@ -104,5 +86,12 @@ int	get_chunk_size(int size)
 	else if (size <= 100)
 		return (15);
 	else
-		return (30);
+		return (29);
+}
+
+void	free_partial_array(char **arr, int count)
+{
+	while (count > 0)
+		free(arr[--count]);
+	free(arr);
 }

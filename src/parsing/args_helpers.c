@@ -6,7 +6,7 @@
 /*   By: yafakihi <yafakihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 21:00:00 by yafakihi          #+#    #+#             */
-/*   Updated: 2026/02/15 22:19:36 by yafakihi         ###   ########.fr       */
+/*   Updated: 2026/02/19 18:10:07 by yafakihi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	**prepare_input(int argc, char **argv, int *count)
 	int		total_count;
 
 	total_count = count_total_numbers(argc, argv);
-	if (total_count == 0)
+	if (total_count <= 0)
 		return (NULL);
 	all_numbers = allocate_and_collect(argc, argv, total_count);
 	*count = total_count;
@@ -54,7 +54,7 @@ int	*validate_and_convert(char **split, int count, int argc)
 	return (arr);
 }
 
-int	create_stack_from_array(t_stack **a, int *arr, int count, char **split, int argc)
+int	create_stack_from_array(t_stack **a, int *arr, int count)
 {
 	int		i;
 	t_stack	*node;
@@ -66,14 +66,12 @@ int	create_stack_from_array(t_stack **a, int *arr, int count, char **split, int 
 		if (!node)
 		{
 			free(arr);
-			free_split(split, argc);
 			return (0);
 		}
 		add_to_stack(a, node);
 		i++;
 	}
 	free(arr);
-	free_split(split, argc);
 	return (1);
 }
 
@@ -88,6 +86,8 @@ int	count_total_numbers(int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
+		if (is_empty_arg(argv[i]))
+			return (-1);
 		split = ft_split(argv[i], ' ');
 		if (!split)
 			return (0);
@@ -108,7 +108,7 @@ char	**allocate_and_collect(int argc, char **argv, int total_count)
 	char	**all_numbers;
 	int		k;
 
-	all_numbers = malloc(sizeof(char*) * (total_count + 1));
+	all_numbers = malloc(sizeof(char *) * (total_count + 1));
 	if (!all_numbers)
 		return (NULL);
 	k = 0;
@@ -119,8 +119,4 @@ char	**allocate_and_collect(int argc, char **argv, int total_count)
 	}
 	all_numbers[k] = NULL;
 	return (all_numbers);
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> recovery-branch

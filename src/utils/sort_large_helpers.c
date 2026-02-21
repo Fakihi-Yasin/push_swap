@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_large_utils.c                                 :+:      :+:    :+:   */
+/*   sort_large_helpers.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yafakihi <yafakihi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,48 +12,57 @@
 
 #include "push_swap.h"
 
-int	ft_len_stack(t_stack *stack)
+t_stack	*find_max_index(t_stack *stack)
 {
-	return (stack_size(stack));
+	t_stack	*max_node;
+	int		max_index;
+
+	if (!stack)
+		return (NULL);
+	max_node = stack;
+	max_index = stack->index;
+	while (stack)
+	{
+		if (stack->index > max_index)
+		{
+			max_index = stack->index;
+			max_node = stack;
+		}
+		stack = stack->next;
+	}
+	return (max_node);
 }
 
-int	ft_chunk_size(int size)
+int	get_position(t_stack *stack, t_stack *target)
 {
-	return (get_chunk_size(size));
-}
-
-int	ft_in_index(t_stack *stack, int target, int chunk_size)
-{
-	int		pos;
-	t_stack	*tmp;
+	int	pos;
 
 	pos = 0;
-	tmp = stack;
-	while (tmp)
+	while (stack)
 	{
-		if (tmp->index <= target + chunk_size)
+		if (stack == target)
 			return (pos);
-		tmp = tmp->next;
+		stack = stack->next;
 		pos++;
 	}
-	return (0);
+	return (-1);
 }
 
-void	initindex(t_stack *stack, int *sorted_arr, int size)
+void	move_to_top(t_stack **b, t_stack *target)
 {
-	assign_indexes(stack, sorted_arr, size);
-}
+	int	pos;
+	int	size;
 
-int	has_element_in_range(t_stack *stack, int min, int max)
-{
-	t_stack	*tmp;
-
-	tmp = stack;
-	while (tmp)
+	pos = get_position(*b, target);
+	size = stack_size(*b);
+	if (pos <= size / 2)
 	{
-		if (tmp->index >= min && tmp->index <= max)
-			return (1);
-		tmp = tmp->next;
+		while (*b != target)
+			rb(b);
 	}
-	return (0);
+	else
+	{
+		while (*b != target)
+			rrb(b);
+	}
 }
